@@ -1,6 +1,7 @@
 package ru.psu.accounterqr;
 
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
@@ -11,6 +12,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class QrGenerator {
     private static final String DEFAULT_EXTENSION = "png";
@@ -23,10 +26,14 @@ public class QrGenerator {
 
     public BufferedImage generate(ObjectEntity objectEntity) throws WriterException {
         String content = objectEntity.toString();
+        Map<EncodeHintType, String> hints = new HashMap<>();
+        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+
         BitMatrix bitMatrix = codeWriter.encode(content,
                 BarcodeFormat.QR_CODE,
                 200,
-                200);
+                200,
+                hints);
 
         return MatrixToImageWriter.toBufferedImage(bitMatrix);
     }
