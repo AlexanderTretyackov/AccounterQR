@@ -1,6 +1,7 @@
 package ru.psu.accounterqr;
 
-import ru.psu.accounterqr.model.ObjectEntity;
+import ru.psu.accounterqr.entity.ObjectEntity;
+import ru.psu.accounterqr.module.QrGenerator;
 
 import java.awt.image.BufferedImage;
 import java.util.LinkedHashMap;

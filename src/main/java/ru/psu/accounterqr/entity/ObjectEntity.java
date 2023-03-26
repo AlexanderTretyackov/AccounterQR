@@ -1,4 +1,4 @@
-package ru.psu.accounterqr.model;
+package ru.psu.accounterqr.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,10 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.lang.annotation.Documented;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;

@@ -9,7 +9,7 @@
 
         <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
 
-        <class>ru.psu.accounterqr.model.ObjectEntity</class>
+        <class>ru.psu.accounterqr.entity.ObjectEntity</class>
 
         <properties>
             <property name="hibernate.ogm.datastore.provider" value="mongodb" />

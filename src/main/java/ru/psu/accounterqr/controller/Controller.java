@@ -3,17 +3,15 @@ package ru.psu.accounterqr.controller;
 import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.psu.accounterqr.QrGenerator;
-import ru.psu.accounterqr.model.ObjectEntity;
+import ru.psu.accounterqr.module.QrGenerator;
+import ru.psu.accounterqr.entity.ObjectEntity;
 import ru.psu.accounterqr.repository.ObjectRepository;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class Controller {

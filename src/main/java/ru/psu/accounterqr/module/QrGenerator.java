@@ -1,4 +1,4 @@
-package ru.psu.accounterqr;
+package ru.psu.accounterqr.module;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -6,7 +6,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import ru.psu.accounterqr.model.ObjectEntity;
+import ru.psu.accounterqr.entity.ObjectEntity;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
