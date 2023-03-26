@@ -2,10 +2,7 @@ package ru.psu.accounterqr.controller;
 
 import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.psu.accounterqr.QrGenerator;
 import ru.psu.accounterqr.model.ObjectEntity;
 import ru.psu.accounterqr.repository.ObjectRepository;
@@ -23,7 +20,7 @@ public class Controller {
     @Autowired
     ObjectRepository objectRepository;
 
-    @PostMapping("/get-object")
+    @GetMapping("/get-object")
     public ObjectEntity getObjectById(@RequestParam String id){
         return objectRepository.getObjectEntitiesById(id);
 
@@ -39,7 +36,7 @@ public class Controller {
         objectRepository.save(object);
     }
 
-    @PostMapping("/get-all")
+    @GetMapping("/get-all")
     public List<ObjectEntity> objectEntities (){
        return objectRepository.findAll();
     }
