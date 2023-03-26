@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState } from "react";
+import { getThings } from "./api/api.js";
 
 var thing = JSON.parse(
   '{ "name": "Стол", "type": "Мебель", "creationDateTime": "2028-10-31T17:04:32.0000000", "attributes": {"Материал": "Дерево", "Ножки" : 4} }'
@@ -79,7 +80,8 @@ function App() {
   function selectThing(newSelectedThing) {
     setSelectedThing(newSelectedThing);
   }
-
+  const temp = getThings();
+  console.log(temp);
   return (
     <main>
       <div className="main-things-creation">
