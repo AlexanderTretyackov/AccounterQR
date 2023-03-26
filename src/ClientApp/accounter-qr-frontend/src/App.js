@@ -67,6 +67,7 @@ function ThingPreview({ selectedThing }) {
       <p>Имя: {selectedThing.name}</p>
       <p>Тип: {selectedThing.type}</p>
       <p>Дата добавления: {selectedThing.creationDateTime}</p>
+      <h4>Атрибуты:</h4>
       {GetThingAttributes(selectedThing)}
     </div>
   );
