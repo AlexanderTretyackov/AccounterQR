@@ -1,3 +1,7 @@
+:root {
+  --base-margin: 1rem;
+}
+
 main{
     margin-left: auto;
     margin-right: auto;
@@ -6,12 +10,14 @@ main{
     flex-basis: 100%;
     flex-grow: 1;
     display: flex;
+    align-items: stretch;
+    justify-items: stretch;
     background-color: lightgray;
 }
 
 .main-thing-preview{
   flex-basis: calc(30%);
-  margin-right: var(--base-margin);
+  height: auto;
 }
 .main-things-list{
   flex-basis: calc(40%);
@@ -20,16 +26,29 @@ main{
 .main-things-creation{
   flex-basis: calc(30%);
   margin-right: var(--base-margin);
+  display: flex;
+  justify-content: stretch;
+}
+
+.frame_t {
+  justify-self: stretch;
+  border: 3px solid #ccc;
+  padding: 15px;
+  width: auto;
+  display: flex;
 }
 
 .frame {
+  justify-self: stretch;
   border: 3px solid #ccc;
   padding: 15px;
+  width: auto;
 }
 
 /* внешние границы таблицы серого цвета толщиной 1px */
 table {
-  border: 1px solid grey;
+  border-collapse: collapse;
+  width: 100%;
 }
 /* границы ячеек первого ряда таблицы */
 th {

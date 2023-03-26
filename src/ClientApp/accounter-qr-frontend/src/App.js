@@ -4,23 +4,36 @@ import { useState } from "react";
 var thing = JSON.parse(
   '{ "name": "Стол", "type": "Мебель", "creationDateTime": "2028-10-31T17:04:32.0000000", "attributes": {"Материал": "Дерево", "Ножки" : 4} }'
 );
+var things = JSON.parse(
+  '[{ "name": "Стол", "type": "Мебель", "creationDateTime": "2028-10-31T17:04:32.0000000", "attributes": {"Материал": "Дерево", "Ножки" : 4} },' +
+    '{ "name": "Стол волшебный", "type": "Мебель", "creationDateTime": "2028-10-31T17:04:32.0000000", "attributes": {"Материал": "Дерево волшебное", "Ножки" : 1} }]'
+);
+
 console.log(thing);
 
-function ThingsList() {
+function ThingsList({ onSelectThing }) {
   return (
     <div className="frame">
       <h3>Просмотр всех объектов</h3>
       <table>
-        <tr>
-          <th>Имя</th>
-          <th>Тип</th>
-          <th>Дата добавления</th>
-        </tr>
-        <tr>
-          <td>данные</td>
-          <td>данные</td>
-          <td>данные</td>
-        </tr>
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Дата добавления</th>
+            <th></th>
+          </tr>
+          {things.map((thing) => (
+            <tr onClick={() => onSelectThing(thing)}>
+              <td>{thing.name}</td>
+              <td>{thing.type}</td>
+              <td>{thing.creationDateTime}</td>
+              <td>
+                <button onClick={() => onSelectThing(thing)}>Подробнее</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
@@ -72,7 +85,7 @@ function App() {
         <NewThing />
       </div>
       <div className="main-things-list">
-        <ThingsList />
+        <ThingsList onSelectThing={selectThing} />
       </div>
       <div className="main-thing-preview">
         <ThingPreview selectedThing={selectedThing} />
