@@ -1,45 +1,30 @@
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+main{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: var(--base-margin);
+    /* max-width: 1128px; */
+    flex-basis: 100%;
+    flex-grow: 1;
+    display: flex;
+    background-color: lightgray;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.main-thing-preview{
+  flex-basis: calc(30%);
+  margin-right: var(--base-margin);
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.main-things-list{
+  flex-basis: calc(40%);
+  margin-right: var(--base-margin);
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main-things-creation{
+  flex-basis: calc(30%);
+  margin-right: var(--base-margin);
 }
 
 .frame {
   border: 3px solid #ccc;
   padding: 15px;
-}
-
-.test > *{
-  display:inline-block; 
 }
 
 /* внешние границы таблицы серого цвета толщиной 1px */

@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 
@@ -68,16 +67,17 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <main>
+      <div className="main-things-creation">
         <NewThing />
-        <div className="test">
-          <ThingsList />
-          <ThingPreview selectedThing={selectedThing} />
-        </div>
-      </header>
-    </div>
+      </div>
+      <div className="main-things-list">
+        <ThingsList />
+      </div>
+      <div className="main-thing-preview">
+        <ThingPreview selectedThing={selectedThing} />
+      </div>
+    </main>
   );
 }
 
