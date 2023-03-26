@@ -1,16 +1,34 @@
 package ru.psu.accounterqr.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.lang.annotation.Documented;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
 
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+@Document
 public class ObjectEntity {
+
+    @Id
+    @GeneratedValue
     private String id;
     private String name;
     private String type;
     private LocalDateTime creationDateTime;
-    private Map<String, String> attributes;
+    private Map<String, String> attributes=new HashMap<>();
 
     public ObjectEntity(String id, String name, String type, Map<String, String> attributes) {
         this.id = id;
@@ -81,5 +99,12 @@ public class ObjectEntity {
                 .add("creationDateTime=" + creationDateTime)
                 .add("attributes=" + attributes)
                 .toString();
+    }
+
+    public ObjectEntity(String name, String type, LocalDateTime creationDateTime, Map<String, String> attributes) {
+        this.name = name;
+        this.type = type;
+        this.creationDateTime = creationDateTime;
+        this.attributes = attributes;
     }
 }
