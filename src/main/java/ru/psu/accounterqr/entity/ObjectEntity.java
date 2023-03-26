@@ -1,15 +1,20 @@
 package ru.psu.accounterqr.entity;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
+import ru.psu.accounterqr.misc.LocalDateTimeAdapter;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.StringJoiner;
 
@@ -26,7 +31,13 @@ public class ObjectEntity {
     private String name;
     private String type;
     private LocalDateTime creationDateTime;
-    private Map<String, String> attributes=new HashMap<>();
+    private Map<String, String> attributes = new LinkedHashMap<>(); // LinkedHashMap поскольку обычный хешмап не сохраняет порядка атрибутов
+
+    @Transient
+    private static final Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
 
     public ObjectEntity(String id, String name, String type, Map<String, String> attributes) {
         this.id = id;
@@ -86,17 +97,7 @@ public class ObjectEntity {
 
     @Override
     public String toString() {
-        // TODO: именно этот метод используется для записи в инфы в QR коде.
-        //  Необходимо изменить его в финальной версии,
-        //  рекомендуется использовать JSON или XML
-
-        return new StringJoiner(", ", ObjectEntity.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
-                .add("name='" + name + "'")
-                .add("type='" + type + "'")
-                .add("creationDateTime=" + creationDateTime)
-                .add("attributes=" + attributes)
-                .toString();
+        return gson.toJson(this);
     }
 
     public ObjectEntity(String name, String type, LocalDateTime creationDateTime, Map<String, String> attributes) {
