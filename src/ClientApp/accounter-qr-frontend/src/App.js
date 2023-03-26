@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
+import { useState } from "react";
 
 var thing = JSON.parse(
   '{ "name": "Стол", "type": "Мебель", "creationDateTime": "2028-10-31T17:04:32.0000000", "attributes": {"Материал": "Дерево", "Ножки" : 4} }'
@@ -9,7 +10,19 @@ console.log(thing);
 function ThingsList() {
   return (
     <div className="frame">
-      <h3>Список вещей</h3>
+      <h3>Просмотр всех объектов</h3>
+      <table>
+        <tr>
+          <th>Имя</th>
+          <th>Тип</th>
+          <th>Дата добавления</th>
+        </tr>
+        <tr>
+          <td>данные</td>
+          <td>данные</td>
+          <td>данные</td>
+        </tr>
+      </table>
     </div>
   );
 }
@@ -35,19 +48,25 @@ export function GetThingAttributes(thing) {
   );
 }
 
-function ThingPreview() {
+function ThingPreview({ selectedThing }) {
   return (
     <div className="frame">
       <h3>Просмотр выбранного объекта</h3>
-      <p>Имя: {thing.name}</p>
-      <p>Тип: {thing.type}</p>
-      <p>Дата добавления: {thing.creationDateTime}</p>
-      {GetThingAttributes(thing)}
+      <p>Имя: {selectedThing.name}</p>
+      <p>Тип: {selectedThing.type}</p>
+      <p>Дата добавления: {selectedThing.creationDateTime}</p>
+      {GetThingAttributes(selectedThing)}
     </div>
   );
 }
 
 function App() {
+  const [selectedThing, setSelectedThing] = useState(thing);
+
+  function selectThing(newSelectedThing) {
+    setSelectedThing(newSelectedThing);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -55,7 +74,7 @@ function App() {
         <NewThing />
         <div className="test">
           <ThingsList />
-          <ThingPreview />
+          <ThingPreview selectedThing={selectedThing} />
         </div>
       </header>
     </div>
