@@ -36,10 +36,10 @@ public class Controller {
     }
 
     @GetMapping("/get-object/qr")
-    public ResponseEntity<Resource> getObjectQr(@RequestBody Map<String, String> requestBody) throws WriterException, IOException {
-        String id = requestBody.get("id");
-        String format = requestBody.get("format");
-
+    public ResponseEntity<Resource> getObjectQr(@RequestParam String id,
+                                                @RequestParam(required = false, defaultValue = "png") String format)
+            throws WriterException, IOException
+    {
         ObjectEntity entity = objectRepository.getObjectEntitiesById(id);
 
         BufferedImage bufferedImage = qrGenerator.generate(entity);
