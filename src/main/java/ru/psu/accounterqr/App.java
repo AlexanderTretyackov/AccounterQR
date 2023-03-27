@@ -1,26 +1,12 @@
 package ru.psu.accounterqr;
 
-import ru.psu.accounterqr.model.ObjectEntity;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.awt.image.BufferedImage;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+@SpringBootApplication
 public class App {
-    public static void main(String[] args) throws Exception {
-        ObjectEntity objectEntity = new ObjectEntity("1", "default", "type");
-        Map<String, String> map = new LinkedHashMap<String, String>() {{
-            for (int i = 0; i < 9; i++) {
-                int j = i + 1;
-                put("Attr" + j, "Val" + j);
-            }
-        }};
-        objectEntity.setAttributes(map);
+    public static void main(String[] args) {
+        SpringApplication.run(App.class, args);
 
-        System.out.println(objectEntity);
-
-        QrGenerator qrGenerator = new QrGenerator();
-        BufferedImage bufferedImage = qrGenerator.generate(objectEntity);
-        qrGenerator.saveAsPicture(bufferedImage, ".\\", "test", "png");
     }
 }
