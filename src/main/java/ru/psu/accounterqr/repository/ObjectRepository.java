@@ -9,4 +9,5 @@ public interface ObjectRepository extends MongoRepository<ObjectEntity, String> 
 
     ObjectEntity getObjectEntitiesById(String id);
 
+
 }

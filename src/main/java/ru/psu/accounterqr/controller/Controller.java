@@ -72,4 +72,16 @@ public class Controller {
     public List<ObjectEntity> objectEntities (){
        return objectRepository.findAll();
     }
+
+
+    @GetMapping("/delete")
+    public void deleteObject(@RequestParam String id){
+        objectRepository.deleteById(id);
+    }
+
+    @PostMapping ("/update")
+    public void updateObject (@RequestBody ObjectEntity object) throws IOException, WriterException {
+        addObject(object);
+
+    }
 }
