@@ -80,6 +80,30 @@ function NewThing() {
   return (
     <div className="frame">
       <h3>Добавление новой вещи</h3>
+        <div id="openModal" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Добавление объекта</h3>
+                    </div>
+                    <select id="city-select" name="city">
+                        <option>{thing.name}</option>
+                    </select>
+                    <div class="modal-body">    
+                        <table>
+                            <tr><th>Атрибут</th><th>Значение</th></tr>
+                            <tr><td>Ширина</td><td><input  type="text" name="width" requiredminlength="1" maxlength="5"/></td></tr>
+                            <tr><td>Высота</td><td><input  type="text" name="height" requiredminlength="1" maxlength="5"/></td></tr>
+                            <tr><td>Длина</td><td><input  type="text" name="length" requiredminlength="1" maxlength="5"/></td></tr>
+                            <tr><td>Количество ножек</td><td><input  type="text" name="legs" requiredminlength="1" maxlength="4"/></td></tr>
+                            <tr><td>Материал</td><td><input  type="text" name="material" requiredminlength="3" maxlength="20"/></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button >Сохранить</button>
+        <button >Отмена </button>
     </div>
   );
 }
