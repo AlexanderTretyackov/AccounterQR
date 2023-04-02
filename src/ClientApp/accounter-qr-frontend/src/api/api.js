@@ -17,3 +17,7 @@ export function getThingQR(thingId) {
     responseType: "blob",
   });
 }
+
+export function addNewThing(newThing) {
+  return axios.post(`${genBaseUrlApi()}/add-object`, newThing);
+}

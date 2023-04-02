@@ -1,6 +1,11 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { getThings, getThingQR, deleteThingById } from "./api/api.js";
+import {
+  getThings,
+  getThingQR,
+  deleteThingById,
+  addNewThing,
+} from "./api/api.js";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -187,7 +192,7 @@ function ThingPreview({ selectedThing }) {
   );
 }
 
-function AddNewThingModalWindow() {
+function AddNewThingModalWindow({ addNewThing }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -198,7 +203,18 @@ function AddNewThingModalWindow() {
       <Button variant="primary" onClick={handleShow}>
         Добавить объект
       </Button>
-
+      <Button
+        variant="primary"
+        onClick={() =>
+          addNewThing(
+            JSON.parse(
+              '{ "name": "Табуретка стильная", "type": "Табуретка", "attributes": {"Материал": "Дерево", "Ножки" : 4} }'
+            )
+          )
+        }
+      >
+        Тест
+      </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Добавление нового объекта</Modal.Title>
@@ -233,6 +249,13 @@ function App() {
     });
   }
 
+  function addThing(newThing) {
+    addNewThing(newThing).then((response) => {
+      const newThingFromResponse = response.data;
+      setThings([...things, newThingFromResponse]);
+    });
+  }
+
   useEffect(() => {
     getThings().then(function (response) {
       setThings(response.data);
@@ -254,7 +277,7 @@ function App() {
         </div>
         <div class="row">
           <div class="col-2">
-            <AddNewThingModalWindow />
+            <AddNewThingModalWindow addNewThing={addThing} />
           </div>
         </div>
         <div class="row mt-2">
