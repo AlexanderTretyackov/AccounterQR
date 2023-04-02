@@ -1,18 +1,16 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getThings } from "./api/api.js";
 
 var thing = JSON.parse(
   '{ "name": "Стол", "type": "Мебель", "creationDateTime": "2028-10-31T17:04:32.0000000", "attributes": {"Материал": "Дерево", "Ножки" : 4} }'
 );
-var things = JSON.parse(
+var testThings = JSON.parse(
   '[{ "name": "Стол", "type": "Мебель", "creationDateTime": "2028-10-31T17:04:32.0000000", "attributes": {"Материал": "Дерево", "Ножки" : 4} },' +
     '{ "name": "Стол волшебный", "type": "Мебель", "creationDateTime": "2028-10-31T17:04:32.0000000", "attributes": {"Материал": "Дерево волшебное", "Ножки" : 1} }]'
 );
 
-console.log(thing);
-
-function ThingsList({ onSelectThing }) {
+function ThingsList({ allThings, onSelectThing }) {
   return (
     <div className="frame">
       <h3>Просмотр всех объектов</h3>
@@ -24,7 +22,7 @@ function ThingsList({ onSelectThing }) {
             <th>Дата добавления</th>
             <th></th>
           </tr>
-          {things.map((thing) => (
+          {allThings.map((thing) => (
             <tr onClick={() => onSelectThing(thing)}>
               <td>{thing.name}</td>
               <td>{thing.type}</td>
@@ -76,19 +74,25 @@ function ThingPreview({ selectedThing }) {
 
 function App() {
   const [selectedThing, setSelectedThing] = useState(thing);
+  const [things, setThings] = useState([]);
 
   function selectThing(newSelectedThing) {
     setSelectedThing(newSelectedThing);
   }
-  const temp = getThings();
-  console.log(temp);
+
+  useEffect(() => {
+    getThings().then(function (response) {
+      setThings(response.data);
+    });
+  }, []);
+
   return (
     <main>
       <div className="main-things-creation">
         <NewThing />
       </div>
       <div className="main-things-list">
-        <ThingsList onSelectThing={selectThing} />
+        <ThingsList allThings={things} onSelectThing={selectThing} />
       </div>
       <div className="main-thing-preview">
         <ThingPreview selectedThing={selectedThing} />

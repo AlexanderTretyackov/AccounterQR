@@ -1,12 +1,9 @@
 import axios from "axios";
 
 export function genBaseUrlApi() {
-  return `http://localhost:5000`;
+  return `http://localhost:8080`;
 }
 
-export async function getThings() {
-  const response = await axios.get(
-    "https://jsonplaceholder.typicode.com/users"
-  );
-  console.log(response.data);
+export function getThings() {
+  return axios.get(`${genBaseUrlApi()}/get-all`);
 }
