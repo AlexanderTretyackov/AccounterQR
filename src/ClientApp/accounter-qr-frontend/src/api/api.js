@@ -7,3 +7,9 @@ export function genBaseUrlApi() {
 export function getThings() {
   return axios.get(`${genBaseUrlApi()}/get-all`);
 }
+
+export function getThingQR(thingId) {
+  return axios.get(`${genBaseUrlApi()}/get-object/qr?id=${thingId}`, {
+    responseType: "blob",
+  });
+}

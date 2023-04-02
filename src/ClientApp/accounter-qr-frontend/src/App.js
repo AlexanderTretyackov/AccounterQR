@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { getThings } from "./api/api.js";
+import { getThings, getThingQR } from "./api/api.js";
 
 var thing = JSON.parse(
   '{ "name": "Стол", "type": "Мебель", "creationDateTime": "2028-10-31T17:04:32.0000000", "attributes": {"Материал": "Дерево", "Ножки" : 4} }'
@@ -10,7 +10,22 @@ var testThings = JSON.parse(
     '{ "name": "Стол волшебный", "type": "Мебель", "creationDateTime": "2028-10-31T17:04:32.0000000", "attributes": {"Материал": "Дерево волшебное", "Ножки" : 1} }]'
 );
 
+export function convertByteArrayToBlob(data, mimeType) {
+  const file = new Blob([data], { type: mimeType });
+  return URL.createObjectURL(file);
+}
+
 function ThingsList({ allThings, onSelectThing }) {
+  function downloadQR(thing) {
+    getThingQR(thing.id).then((response) => {
+      const element = document.createElement("a");
+      element.href = convertByteArrayToBlob(response.data, "png");
+      element.download = "qr.png";
+      document.body.appendChild(element);
+      element.click();
+    });
+  }
+
   return (
     <div className="frame">
       <h3>Просмотр всех объектов</h3>
@@ -29,6 +44,9 @@ function ThingsList({ allThings, onSelectThing }) {
               <td>{thing.creationDateTime}</td>
               <td>
                 <button onClick={() => onSelectThing(thing)}>Подробнее</button>
+              </td>
+              <td>
+                <button onClick={() => downloadQR(thing)}>QR-код</button>
               </td>
             </tr>
           ))}
