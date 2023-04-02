@@ -1,6 +1,9 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import { getThings, getThingQR, deleteThingById } from "./api/api.js";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 var thing = JSON.parse(
   '{ "name": "Стол", "type": "Мебель", "creationDateTime": "2028-10-31T17:04:32.0000000", "attributes": {"Материал": "Дерево", "Ножки" : 4} }'
@@ -95,6 +98,38 @@ function ThingPreview({ selectedThing }) {
   );
 }
 
+function AddNewThingModalWindow() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow}>
+        Добавить объект
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Добавление нового объекта</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <NewThing></NewThing>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Закрыть
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Добавить
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
+
 function App() {
   const [selectedThing, setSelectedThing] = useState(thing);
   const [things, setThings] = useState([]);
@@ -117,9 +152,7 @@ function App() {
 
   return (
     <main>
-      <div className="main-things-creation">
-        <NewThing />
-      </div>
+      <AddNewThingModalWindow />
       <div className="main-things-list">
         <ThingsList
           allThings={things}
