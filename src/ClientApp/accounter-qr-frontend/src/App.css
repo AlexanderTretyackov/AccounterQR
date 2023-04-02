@@ -12,7 +12,6 @@ main{
     display: flex;
     align-items: stretch;
     justify-items: stretch;
-    background-color: lightgray;
 }
 
 .main-thing-preview{

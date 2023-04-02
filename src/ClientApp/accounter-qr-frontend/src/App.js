@@ -32,7 +32,7 @@ function ThingsList({ allThings, onSelectThing, deleteThing }) {
   return (
     <div className="frame">
       <h3>Просмотр всех объектов</h3>
-      <table>
+      <table class="table table-striped">
         <tbody>
           <tr>
             <th></th>
@@ -45,16 +45,28 @@ function ThingsList({ allThings, onSelectThing, deleteThing }) {
           {allThings.map((thing) => (
             <tr>
               <td>
-                <button onClick={() => deleteThing(thing)}>Удалить</button>
+                <button
+                  onClick={() => deleteThing(thing)}
+                  class="btn btn-danger"
+                >
+                  Удалить
+                </button>
               </td>
               <td>{thing.name}</td>
               <td>{thing.type}</td>
               <td>{thing.creationDateTime}</td>
               <td>
-                <button onClick={() => onSelectThing(thing)}>Подробнее</button>
+                <button
+                  onClick={() => onSelectThing(thing)}
+                  class="btn btn-info"
+                >
+                  Подробнее
+                </button>
               </td>
               <td>
-                <button onClick={() => downloadQR(thing)}>QR-код</button>
+                <button onClick={() => downloadQR(thing)} class="btn btn-link">
+                  QR-код
+                </button>
               </td>
             </tr>
           ))}
@@ -152,7 +164,9 @@ function App() {
 
   return (
     <main>
-      <AddNewThingModalWindow />
+      <div>
+        <AddNewThingModalWindow />
+      </div>
       <div className="main-things-list">
         <ThingsList
           allThings={things}
