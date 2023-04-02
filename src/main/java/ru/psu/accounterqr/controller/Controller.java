@@ -56,7 +56,7 @@ public class Controller {
     }
 
     @PostMapping ("/add-object")
-    public void addObject(@RequestBody ObjectEntity object) throws WriterException, IOException {
+    public ObjectEntity addObject(@RequestBody ObjectEntity object) throws WriterException, IOException {
         object.setCreationDateTime(LocalDateTime.now());
 
         String qrcodeName = String.format("%s_%s_%s",
@@ -67,6 +67,7 @@ public class Controller {
         BufferedImage bufferedImage = qrGenerator.generate(object);
         qrGenerator.saveAsPicture(bufferedImage, ".\\qrcodes\\", qrcodeName, "png");
         objectRepository.save(object);
+        return object;
     }
 
     @GetMapping("/get-all")
