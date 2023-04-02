@@ -75,7 +75,7 @@ public class Controller {
     }
 
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public void deleteObject(@RequestParam String id){
         objectRepository.deleteById(id);
     }
