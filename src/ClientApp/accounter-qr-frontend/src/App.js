@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { getThings, getThingQR } from "./api/api.js";
+import { getThings, getThingQR, deleteThingById } from "./api/api.js";
 
 var thing = JSON.parse(
   '{ "name": "Стол", "type": "Мебель", "creationDateTime": "2028-10-31T17:04:32.0000000", "attributes": {"Материал": "Дерево", "Ножки" : 4} }'
@@ -15,7 +15,7 @@ export function convertByteArrayToBlob(data, mimeType) {
   return URL.createObjectURL(file);
 }
 
-function ThingsList({ allThings, onSelectThing }) {
+function ThingsList({ allThings, onSelectThing, deleteThing }) {
   function downloadQR(thing) {
     getThingQR(thing.id).then((response) => {
       const element = document.createElement("a");
@@ -32,13 +32,18 @@ function ThingsList({ allThings, onSelectThing }) {
       <table>
         <tbody>
           <tr>
+            <th></th>
             <th>Имя</th>
             <th>Тип</th>
             <th>Дата добавления</th>
             <th></th>
+            <th></th>
           </tr>
           {allThings.map((thing) => (
-            <tr onClick={() => onSelectThing(thing)}>
+            <tr>
+              <td>
+                <button onClick={() => deleteThing(thing)}>Удалить</button>
+              </td>
               <td>{thing.name}</td>
               <td>{thing.type}</td>
               <td>{thing.creationDateTime}</td>
@@ -98,6 +103,12 @@ function App() {
     setSelectedThing(newSelectedThing);
   }
 
+  function deleteThing(thing) {
+    deleteThingById(thing.id).then((response) => {
+      setThings(things.filter((t) => !(t.id == thing.id)));
+    });
+  }
+
   useEffect(() => {
     getThings().then(function (response) {
       setThings(response.data);
@@ -110,7 +121,11 @@ function App() {
         <NewThing />
       </div>
       <div className="main-things-list">
-        <ThingsList allThings={things} onSelectThing={selectThing} />
+        <ThingsList
+          allThings={things}
+          onSelectThing={selectThing}
+          deleteThing={deleteThing}
+        />
       </div>
       <div className="main-thing-preview">
         <ThingPreview selectedThing={selectedThing} />
