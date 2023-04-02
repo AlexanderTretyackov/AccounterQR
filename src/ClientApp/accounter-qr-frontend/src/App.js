@@ -80,30 +80,83 @@ function NewThing() {
   return (
     <div className="frame">
       <h3>Добавление новой вещи</h3>
-        <div id="openModal" class="modal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title">Добавление объекта</h3>
-                    </div>
-                    <select id="city-select" name="city">
-                        <option>{thing.name}</option>
-                    </select>
-                    <div class="modal-body">    
-                        <table>
-                            <tr><th>Атрибут</th><th>Значение</th></tr>
-                            <tr><td>Ширина</td><td><input  type="text" name="width" requiredminlength="1" maxlength="5"/></td></tr>
-                            <tr><td>Высота</td><td><input  type="text" name="height" requiredminlength="1" maxlength="5"/></td></tr>
-                            <tr><td>Длина</td><td><input  type="text" name="length" requiredminlength="1" maxlength="5"/></td></tr>
-                            <tr><td>Количество ножек</td><td><input  type="text" name="legs" requiredminlength="1" maxlength="4"/></td></tr>
-                            <tr><td>Материал</td><td><input  type="text" name="material" requiredminlength="3" maxlength="20"/></td></tr>
-                        </table>
-                    </div>
-                </div>
+      <div id="openModal" class="modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title">Добавление объекта</h3>
             </div>
+            <select id="city-select" name="city">
+              <option>{thing.name}</option>
+            </select>
+            <div class="modal-body">
+              <table>
+                <tr>
+                  <th>Атрибут</th>
+                  <th>Значение</th>
+                </tr>
+                <tr>
+                  <td>Ширина</td>
+                  <td>
+                    <input
+                      type="text"
+                      name="width"
+                      requiredminlength="1"
+                      maxlength="5"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Высота</td>
+                  <td>
+                    <input
+                      type="text"
+                      name="height"
+                      requiredminlength="1"
+                      maxlength="5"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Длина</td>
+                  <td>
+                    <input
+                      type="text"
+                      name="length"
+                      requiredminlength="1"
+                      maxlength="5"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Количество ножек</td>
+                  <td>
+                    <input
+                      type="text"
+                      name="legs"
+                      requiredminlength="1"
+                      maxlength="4"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Материал</td>
+                  <td>
+                    <input
+                      type="text"
+                      name="material"
+                      requiredminlength="3"
+                      maxlength="20"
+                    />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
         </div>
-        <button >Сохранить</button>
-        <button >Отмена </button>
+      </div>
+      <button>Сохранить</button>
+      <button>Отмена </button>
     </div>
   );
 }
@@ -188,18 +241,34 @@ function App() {
 
   return (
     <main>
-      <div>
-        <AddNewThingModalWindow />
-      </div>
-      <div className="main-things-list">
-        <ThingsList
-          allThings={things}
-          onSelectThing={selectThing}
-          deleteThing={deleteThing}
-        />
-      </div>
-      <div className="main-thing-preview">
-        <ThingPreview selectedThing={selectedThing} />
+      <div class="container">
+        <div class="row">
+          <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a
+              href="/"
+              class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
+            >
+              <span class="fs-4">Система учета AccounterQR </span>
+            </a>
+          </header>
+        </div>
+        <div class="row">
+          <div class="col-2">
+            <AddNewThingModalWindow />
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-8">
+            <ThingsList
+              allThings={things}
+              onSelectThing={selectThing}
+              deleteThing={deleteThing}
+            />
+          </div>
+          <div class="col-4">
+            <ThingPreview selectedThing={selectedThing} />
+          </div>
+        </div>
       </div>
     </main>
   );
