@@ -165,6 +165,15 @@ function AddNewThingModalWindow({ addNewThing }) {
     console.log(newThingJson);
     addNewThing(newThingJson);
     handleClose();
+    resetInputs();
+  }
+
+  function resetInputs() {
+    setName("");
+    setType("");
+    setAttributes([]);
+    setNewAttributeName("");
+    setNewAttributeValue("");
   }
 
   return (
