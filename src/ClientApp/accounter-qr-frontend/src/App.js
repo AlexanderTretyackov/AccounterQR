@@ -120,6 +120,12 @@ function AddNewThingModalWindow({ addNewThing }) {
 
   function addAttribute() {
     setAttributes([...attributes, [newAttributeName, newAttributeValue]]);
+    resetNewAttributeInputs();
+  }
+
+  function resetNewAttributeInputs() {
+    setNewAttributeName("");
+    setNewAttributeValue("");
   }
 
   function removeLastAttribute() {
