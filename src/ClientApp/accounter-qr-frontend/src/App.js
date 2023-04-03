@@ -81,91 +81,6 @@ function ThingsList({ allThings, onSelectThing, deleteThing }) {
   );
 }
 
-function NewThing() {
-  return (
-    <div className="frame">
-      <h3>Добавление новой вещи</h3>
-      <div id="openModal" class="modal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title">Добавление объекта</h3>
-            </div>
-            <select id="city-select" name="city">
-              <option>{thing.name}</option>
-            </select>
-            <div class="modal-body">
-              <table>
-                <tr>
-                  <th>Атрибут</th>
-                  <th>Значение</th>
-                </tr>
-                <tr>
-                  <td>Ширина</td>
-                  <td>
-                    <input
-                      type="text"
-                      name="width"
-                      requiredminlength="1"
-                      maxlength="5"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Высота</td>
-                  <td>
-                    <input
-                      type="text"
-                      name="height"
-                      requiredminlength="1"
-                      maxlength="5"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Длина</td>
-                  <td>
-                    <input
-                      type="text"
-                      name="length"
-                      requiredminlength="1"
-                      maxlength="5"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Количество ножек</td>
-                  <td>
-                    <input
-                      type="text"
-                      name="legs"
-                      requiredminlength="1"
-                      maxlength="4"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Материал</td>
-                  <td>
-                    <input
-                      type="text"
-                      name="material"
-                      requiredminlength="3"
-                      maxlength="20"
-                    />
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button>Сохранить</button>
-      <button>Отмена </button>
-    </div>
-  );
-}
-
 export function GetThingAttributes(thing) {
   var keys = Object.keys(thing.attributes);
   return (
@@ -194,39 +109,134 @@ function ThingPreview({ selectedThing }) {
 
 function AddNewThingModalWindow({ addNewThing }) {
   const [show, setShow] = useState(false);
+  const [name, setName] = useState("");
+  const [type, setType] = useState("");
+  const [attributes, setAttributes] = useState([]);
+  const [newAttributeName, setNewAttributeName] = useState("");
+  const [newAttributeValue, setNewAttributeValue] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  function addAttribute() {
+    setAttributes([...attributes, [newAttributeName, newAttributeValue]]);
+  }
+
+  function removeLastAttribute() {
+    setAttributes(attributes.slice(0, -1));
+  }
+
+  function handleChangeName(e) {
+    setName(e.target.value);
+  }
+
+  function handleChangeType(e) {
+    setType(e.target.value);
+  }
+
+  function handleChangeNewAttributeName(e) {
+    setNewAttributeName(e.target.value);
+  }
+
+  function handleChangeNewAttributeValue(e) {
+    setNewAttributeValue(e.target.value);
+  }
+
+  function attributesToString() {
+    return attributes
+      .map((attribute) => `"${attribute[0]}":"${attribute[1]}"`)
+      .join(",");
+  }
+
+  function constructNewThingJson() {
+    return JSON.parse(
+      `{ "name": "${name}", "type": "${type}", "attributes": {${attributesToString()}} }`
+    );
+  }
+
+  function save() {
+    const newThingJson = constructNewThingJson();
+    console.log(newThingJson);
+    addNewThing(newThingJson);
+    handleClose();
+  }
 
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
         Добавить объект
       </Button>
-      <Button
-        variant="primary"
-        onClick={() =>
-          addNewThing(
-            JSON.parse(
-              '{ "name": "Табуретка стильная", "type": "Табуретка", "attributes": {"Материал": "Дерево", "Ножки" : 4} }'
-            )
-          )
-        }
-      >
-        Тест
-      </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Добавление нового объекта</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <NewThing></NewThing>
+          {
+            <div>
+              <table>
+                <tr>
+                  <td>Название</td>
+                  <td>
+                    <input
+                      value={name}
+                      onChange={handleChangeName.bind(this)}
+                    ></input>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Тип</td>
+                  <td>
+                    <input
+                      value={type}
+                      onChange={handleChangeType.bind(this)}
+                    ></input>
+                  </td>
+                </tr>
+              </table>
+              <table>
+                <tr>
+                  <th>Атрибут</th>
+                  <th>Значение</th>
+                </tr>
+                {attributes.map((attribute) => (
+                  <tr>
+                    <td>{attribute[0]}</td>
+                    <td>{attribute[1]}</td>
+                  </tr>
+                ))}
+              </table>
+              <table>
+                <tr>
+                  <th>Новый атрибут</th>
+                  <th>Новое значение</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input
+                      value={newAttributeName}
+                      onChange={handleChangeNewAttributeName.bind(this)}
+                    ></input>
+                  </td>
+                  <td>
+                    <input
+                      value={newAttributeValue}
+                      onChange={handleChangeNewAttributeValue.bind(this)}
+                    ></input>
+                  </td>
+                </tr>
+              </table>
+              <Button onClick={addAttribute}>+</Button>
+              <Button onClick={removeLastAttribute} variant="danger">
+                -
+              </Button>
+            </div>
+          }
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Закрыть
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={save}>
             Добавить
           </Button>
         </Modal.Footer>
